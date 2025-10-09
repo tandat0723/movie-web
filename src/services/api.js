@@ -14,3 +14,18 @@ export const fetchTrending = async (timeWindow = 'day') => {
 
     return data?.results
 }
+
+//Movies - Details
+export const fetchDetails = async (type, id) => {
+    const res = await axios.get(`${baseUrl}/${type}/${id}?api_key=${APIKey}`)
+
+    return res?.data
+}
+
+//Movie & series - credit
+
+export const fetchCredits = async (type, id) => {
+    const res = await axios.get(`${baseUrl}/${type}/${id}/credits?api_key=${APIKey}`)
+
+    return res?.data
+}
