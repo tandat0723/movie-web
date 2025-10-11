@@ -23,7 +23,6 @@ export const fetchDetails = async (type, id) => {
 }
 
 //Movies & series - credits
-
 export const fetchCredits = async (type, id) => {
     const res = await axios.get(`${baseUrl}/${type}/${id}/credits?api_key=${APIKey}`)
 
@@ -31,7 +30,6 @@ export const fetchCredits = async (type, id) => {
 }
 
 //Movies & series - videos
-
 export const fetchVideos = async (type, id) => {
     const res = await axios.get(`${baseUrl}/${type}/${id}/videos?api_key=${APIKey}`)
 
@@ -39,9 +37,24 @@ export const fetchVideos = async (type, id) => {
 }
 
 // Discover
+export const fetchMovies = async (page, sortBy) => {
+    const res = await axios.get(`
+        ${baseUrl}/discover/movie?api_key=${APIKey}&page=${page}&sort_by=${sortBy}`)
 
-export const fetchMovies = async () => {
-    const res = await axios.get(`${baseUrl}/discover/movie?api_key=${APIKey}`)
+    return res?.data
+}
+
+export const fetchTvSeries = async (page, sortBy) => {
+    const res = await axios.get(`
+        ${baseUrl}/discover/tv?api_key=${APIKey}&page=${page}&sort_by=${sortBy}`)
+
+    return res?.data
+}
+
+//Search
+export const searchData = async (query) => {
+    const res = await axios.get(`
+        ${baseUrl}/search/multi?api_key=${APIKey}$query=${query}`)
 
     return res?.data
 }

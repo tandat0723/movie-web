@@ -167,15 +167,22 @@ const DetailsPage = () => {
                     {cast?.length === 0 && <Text>No cast found</Text>}
                     {cast && cast?.map((item) => (
                         <Box key={item?.id} minW={'150px'}>
-                            <Image src={`${imagePath}/${item?.profile_path}`} />
+                            <Image
+                                src={`${imagePath}/${item?.profile_path}`}
+                                w={'100%'}
+                                height={'225px'}
+                                objectFit={'cover'}
+                                borderRadius={'sm'} />
                         </Box>
                     ))}
                 </Flex>
+
                 <Heading
                     as={'h2'}
                     fontSize={'md'}
                     textTransform={'uppercase'}
-                    mt={10} mb={5}>
+                    mt={10} mb={5}
+                >
                     Videos
                 </Heading>
                 <Video id={video?.key} />
