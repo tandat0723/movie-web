@@ -15,7 +15,6 @@ const Movies = () => {
     setIsLoading(true)
     fetchMovies(activePage, sortBy)
       .then((res) => {
-        console.log(res, 'res')
         setMovies(res?.results)
         setActivePage(res?.page)
         setTotalPages(res?.total_pages)

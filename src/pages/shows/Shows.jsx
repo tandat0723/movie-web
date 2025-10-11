@@ -15,7 +15,6 @@ const Shows = () => {
         setIsLoading(true)
         fetchTvSeries(activePage, sortBy)
             .then((res) => {
-                console.log(res, 'res')
                 setShows(res?.results)
                 setActivePage(res?.page)
                 setTotalPages(res?.total_pages)

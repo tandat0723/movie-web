@@ -1,21 +1,25 @@
-import { Badge, Box, Button, CircularProgress, CircularProgressLabel, Container, Flex, Heading, Image, Spinner, Text } from "@chakra-ui/react"
+import { Badge, Box, Button, CircularProgress, CircularProgressLabel, Container, Flex, Heading, Image, Spinner, Text, useToast } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { fetchCredits, fetchDetails, fetchVideos, imagePath, imagePathOriginal } from "../services/api"
 import { CalendarIcon, CheckCircleIcon, SmallAddIcon, TimeIcon } from "@chakra-ui/icons"
 import { minutesToHours, ratingToPercentage, resolveRatingColor } from "../utils/helpers"
 import Video from "../components/Video"
+import { useAuth } from "../context/useAuth"
+import { useFirestore } from "../services/firestore"
 
 
 const DetailsPage = () => {
     const router = useParams()
     const { type, id } = router
-
+    const { user } = useAuth()
+    const toast = useToast()
     const [loading, setLoading] = useState(true)
     const [details, setDetails] = useState({})
     const [cast, setCast] = useState([])
     const [video, setVideo] = useState(null)
     const [videos, setVideos] = useState([])
+    const { addToWatchlist } = useFirestore()
 
     useEffect(() => {
         const fetchData = async () => {
@@ -48,7 +52,29 @@ const DetailsPage = () => {
         fetchData()
     }, [type, id])
 
-    console.log(video, videos, 'video')
+    const handleSaveToWatchlist = async () => {
+        if (!user) {
+            toast({
+                title: "Login to add to watchlist",
+                status: 'error',
+                isClosable: true,
+            })
+            return
+        }
+
+        const data = {
+            id: details?.id,
+            title: details?.title || details?.name,
+            type: type,
+            poster_path: details?.poster_path,
+            release_date: details?.release_date || details?.first_air_date,
+            vote_average: details?.vote_average,
+            overview: details?.overview
+        }
+
+        const dataId = details?.id.toString()
+        await addToWatchlist(user?.uid, dataId, data)
+    }
 
     if (loading) {
         return (
@@ -135,7 +161,7 @@ const DetailsPage = () => {
                                 <Button
                                     leftIcon={<SmallAddIcon />}
                                     variant={'outline'}
-                                    onClick={() => console.log('click')}
+                                    onClick={handleSaveToWatchlist}
                                 >
                                     Add to watchlist
                                 </Button>

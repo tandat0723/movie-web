@@ -16,7 +16,6 @@ const Search = () => {
         setIsLoading(true)
         searchData(searchValue, activePage)
             .then((res) => {
-                console.log(res, 'res')
                 setData(res?.results)
                 setActivePage(res?.page)
                 setTotalPage(res?.total_pages)
