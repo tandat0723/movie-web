@@ -11,11 +11,11 @@ const styles = {
         body: {
             bg: mode(
                 props.theme.semanticTokens.colors['chakra-body-bg']._light,
-                'blackAlpha900'
-            ),
-        },
-    }),
-};
+                'blackAlpha.900'
+            )(props),
+        }
+    })
+}
 
 const theme = extendTheme({ config, styles })
 
