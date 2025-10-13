@@ -1,16 +1,31 @@
-# React + Vite
+## 🎬 Movie Web - Movie Discovery and Watchlist Application
+Movie Web is a modern web application built to explore the latest movies and TV shows. The project focuses on providing a minimalist, high-performance user interface, along with personalized features such as Watchlist management and user authentication.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Trang chủ](./src/assets/Screenshot.png)
 
-Currently, two official plugins are available:
+## ✨ Key Features
+* **Content Discovery: View trending, top-rated, and upcoming movies and TV shows.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+* **Details Page: Displays detailed information about a title, including a synopsis, release date, rating score, and cast.
 
-## React Compiler
+* **Personalized Watchlist: Add and remove items from your private watchlist (login required).
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* **User Authentication: Secure login via Google/Firebase Authentication.
 
-## Expanding the ESLint configuration
+* **Modern Interface: Uses Chakra UI for a beautiful, responsive, and easily customizable design.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ Technology Stack
+
+This project is built on a Modern Web Stack:
+
+* **Frontend Framework: React
+
+* **Tooling/Bundler: Vite
+
+* **UI Library: Chakra UI
+
+* **Styling: CSS
+
+* **Movie Data: The Movie Database (TMDB) API
+
+* **Backend/Database: Firebase Authentication & Firestore
