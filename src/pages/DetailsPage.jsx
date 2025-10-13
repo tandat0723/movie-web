@@ -19,7 +19,8 @@ const DetailsPage = () => {
     const [cast, setCast] = useState([])
     const [video, setVideo] = useState(null)
     const [videos, setVideos] = useState([])
-    const { addToWatchlist } = useFirestore()
+    const { addToWatchlist, checkIfInWatchlist, removeFromWatchlist } = useFirestore()
+    const [isInWatchlist, setIsInWatchlist] = useState(false)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -44,7 +45,7 @@ const DetailsPage = () => {
                     filter((video) => video?.type !== 'Trailer')?.slice(0, 10)
                 setVideos(videos)
             } catch (err) {
-                console.log(err)
+                console.log(err, 'err')
             } finally {
                 setLoading(false)
             }
@@ -56,10 +57,10 @@ const DetailsPage = () => {
         if (!user) {
             toast({
                 title: "Login to add to watchlist",
-                status: 'error',
+                status: "error",
                 isClosable: true,
-            })
-            return
+            });
+            return;
         }
 
         const data = {
@@ -69,12 +70,31 @@ const DetailsPage = () => {
             poster_path: details?.poster_path,
             release_date: details?.release_date || details?.first_air_date,
             vote_average: details?.vote_average,
-            overview: details?.overview
+            overview: details?.overview,
+        };
+
+        const dataId = details?.id?.toString()
+        await addToWatchlist(user?.uid, dataId, data)
+        const isSetToWatchlist = await checkIfInWatchlist(user?.uid, dataId)
+        setIsInWatchlist(isSetToWatchlist)
+    }
+
+    useEffect(() => {
+        if (!user) {
+            setIsInWatchlist(false)
+            return
         }
 
-        const dataId = details?.id.toString()
-        await addToWatchlist(user?.uid, dataId, data)
-    }
+        checkIfInWatchlist(user?.uid, id).then((data) => {
+            setIsInWatchlist(data)
+        })
+    }, [id, user, checkIfInWatchlist])
+
+    const handleRemoveFromWatchlist = async () => {
+        await removeFromWatchlist(user?.uid, id)
+        const isSetToWatchlist = await checkIfInWatchlist(user?.uid, id)
+        setIsInWatchlist(isSetToWatchlist)
+    };
 
     if (loading) {
         return (
@@ -119,7 +139,6 @@ const DetailsPage = () => {
                                         {new Date(releaseDate).toLocaleDateString('en-US')} (US)
                                     </Text>
                                 </Flex>
-
                                 {type === 'movie' && (
                                     <>
                                         <Box>*</Box>
@@ -149,22 +168,25 @@ const DetailsPage = () => {
                                     </CircularProgressLabel>
                                 </CircularProgress>
                                 <Text display={{ base: 'none', md: 'initial' }}>User Score</Text>
-                                <Button
-                                    display={'none'}
-                                    leftIcon={<CheckCircleIcon />}
-                                    colorScheme='green'
-                                    variant={'outline'}
-                                    onClick={() => console.log('click')}
-                                >
-                                    In watchlist
-                                </Button>
-                                <Button
-                                    leftIcon={<SmallAddIcon />}
-                                    variant={'outline'}
-                                    onClick={handleSaveToWatchlist}
-                                >
-                                    Add to watchlist
-                                </Button>
+
+                                {isInWatchlist ? (
+                                    <Button
+                                        leftIcon={<CheckCircleIcon />}
+                                        colorScheme='green'
+                                        variant={'outline'}
+                                        onClick={handleRemoveFromWatchlist}
+                                    >
+                                        In watchlist
+                                    </Button>
+                                ) : (
+                                    <Button
+                                        leftIcon={<SmallAddIcon />}
+                                        variant={'outline'}
+                                        onClick={handleSaveToWatchlist}
+                                    >
+                                        Add to watchlist
+                                    </Button>
+                                )}
                             </Flex>
                             <Text
                                 color={'gray.400'}

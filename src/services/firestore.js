@@ -1,10 +1,12 @@
 import { useToast } from '@chakra-ui/react'
 import { db } from '../services/firebase'
-import { addDoc, collection, doc, getDoc, setDoc } from 'firebase/firestore'
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, setDoc } from 'firebase/firestore'
+import { useCallback } from 'react'
 
 
 export const useFirestore = () => {
     const toast = useToast()
+
     const addDocument = async (collectionName, data) => {
         // Add a new document with a generated id.
         const docRef = await addDoc(collection(db, collectionName), data);
@@ -25,8 +27,8 @@ export const useFirestore = () => {
             }
             await setDoc(doc(db, 'users', userId, 'watchlist', dataId), data)
             toast({
-                title: 'Success',
-                description: "Add to watchlist",
+                title: 'Success!',
+                description: "Added to watchlist",
                 status: 'success',
                 isClosable: true,
             })
@@ -41,18 +43,61 @@ export const useFirestore = () => {
         }
     }
 
+    const checkIfInWatchlist = async (userId, dataId) => {
+        const docRef = doc(
+            db,
+            "users",
+            userId?.toString(),
+            "watchlist",
+            dataId?.toString()
+        )
+
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    const removeFromWatchlist = async (userId, dataId) => {
+        try {
+            await deleteDoc(
+                doc(db, "users", userId?.toString(), "watchlist", dataId?.toString())
+            );
+            toast({
+                title: "Success!",
+                description: "Removed from watchlist",
+                status: "success",
+                isClosable: true,
+            });
+        } catch (error) {
+            toast({
+                title: "Error!",
+                description: "An error occurred.",
+                status: "error",
+                isClosable: true,
+            });
+            console.log(error, "Error while deleting doc")
+        }
+    }
+
+    const getWatchlist = useCallback(async (userId) => {
+        const query = await getDocs(
+            collection(db, 'users', userId, 'watchlist')
+        )
+        const data = query.docs.map((doc) => ({
+            ...doc.data(),
+        }))
+        return data
+    }, [])
+
     return {
         addDocument,
-        addToWatchlist
+        addToWatchlist,
+        checkIfInWatchlist,
+        removeFromWatchlist,
+        getWatchlist,
     }
 }
 
-const checkIfInWatchlist = async (userId, dataId) => {
-    const docRef = doc(db, 'users', userId?.toString(), 'watchlist', dataId?.toString())
-    const docSnap = await getDoc(docRef)
-    if (docSnap.exists()) {
-        return true
-    } else {
-        return false
-    }
-}
