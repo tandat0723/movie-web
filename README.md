@@ -4,28 +4,28 @@ Movie Web is a modern web application built to explore the latest movies and TV 
 ![Trang chủ](./src/assets/Screenshot.png)
 
 ## ✨ Key Features
-* **Content Discovery: View trending, top-rated, and upcoming movies and TV shows.
+* Content Discovery: View trending, top-rated, and upcoming movies and TV shows.
 
-* **Details Page: Displays detailed information about a title, including a synopsis, release date, rating score, and cast.
+* Details Page: Displays detailed information about a title, including a synopsis, release date, rating score, and cast.
 
-* **Personalized Watchlist: Add and remove items from your private watchlist (login required).
+* Personalized Watchlist: Add and remove items from your private watchlist (login required).
 
-* **User Authentication: Secure login via Google/Firebase Authentication.
+* User Authentication: Secure login via Google/Firebase Authentication.
 
-* **Modern Interface: Uses Chakra UI for a beautiful, responsive, and easily customizable design.
+* Modern Interface: Uses Chakra UI for a beautiful, responsive, and easily customizable design.
 
 ## 🛠️ Technology Stack
 
 This project is built on a Modern Web Stack:
 
-* **Frontend Framework: React
+* Frontend Framework: React
 
-* **Tooling/Bundler: Vite
+* Tooling/Bundler: Vite
 
-* **UI Library: Chakra UI
+* UI Library: Chakra UI
 
-* **Styling: CSS
+* Styling: CSS
 
-* **Movie Data: The Movie Database (TMDB) API
+* Data: The Movie Database (TMDB) API
 
-* **Backend/Database: Firebase Authentication & Firestore
+* Backend/Database: Firebase Authentication & Firestore
