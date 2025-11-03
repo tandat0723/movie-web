@@ -121,6 +121,7 @@ const DetailsPage = () => {
                 zIndex={-1}
                 display={'flex'}
                 alignItems={'center'}
+                textColor={'white'}
             >
                 <Container maxW={'container.xl'}>
                     <Flex alignItems={'center'} gap={10} flexDirection={{ base: 'column', md: 'row' }}>

@@ -9,11 +9,9 @@ const config = {
 const styles = {
     global: (props) => ({
         body: {
-            bg: mode(
-                props.theme.semanticTokens.colors['chakra-body-bg']._dark,
-                'whiteAlpha.900'
-            )(props),
-            color: mode('whiteAlpha.900', 'blackAlpha.900')(props),
+            bg: mode("white", "gray.900")(props),
+            color: mode("gray.800", "whiteAlpha.900")(props),
+            transition: "background-color 0.2s ease, color 0.2s ease",
         }
     })
 }
