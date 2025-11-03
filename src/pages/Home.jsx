@@ -39,7 +39,7 @@ const Home = () => {
                         px="3"
                         py="1"
                         borderRadius={"20px"}
-                        bg={`${timeWindow === "day" ? "gray.800" : ""}`}
+                        bg={`${timeWindow === "day" ? "red" : ""}`}
                         onClick={() => setTimeWindow("day")}
                     >
                         Today
@@ -49,7 +49,7 @@ const Home = () => {
                         px="3"
                         py="1"
                         borderRadius={"20px"}
-                        bg={`${timeWindow === "week" ? "gray.800" : ""}`}
+                        bg={`${timeWindow === "week" ? "red" : ""}`}
                         onClick={() => setTimeWindow("week")}
                     >
                         This Week

@@ -1,5 +1,5 @@
 
-import { Avatar, Box, Button, Container, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay, Flex, IconButton, Menu, MenuButton, MenuItem, MenuList, useDisclosure } from "@chakra-ui/react";
+import { Avatar, Box, Button, Container, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay, Flex, IconButton, Menu, MenuButton, MenuItem, MenuList, useColorModeValue, useDisclosure } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/useAuth";
 import { HamburgerIcon, SearchIcon } from "@chakra-ui/icons";
@@ -7,6 +7,10 @@ import { HamburgerIcon, SearchIcon } from "@chakra-ui/icons";
 const Navbar = () => {
     const { user, signInWithGoogle, logout } = useAuth();
     const { onOpen, isOpen, onClose } = useDisclosure();
+
+    const menuBg = useColorModeValue("white", "gray.800");
+    const menuColor = useColorModeValue("gray.800", "whiteAlpha.900");
+    const hoverBg = useColorModeValue("gray.100", "gray.700");
 
     const handleGoogleLogin = async () => {
         try {
@@ -54,11 +58,16 @@ const Navbar = () => {
                                         name={user?.email}
                                     />
                                 </MenuButton>
-                                <MenuList bg={'black'} border={"none"}>
+                                <MenuList bg={menuBg}
+                                    border={'none'}
+                                    color={menuColor}
+                                    mt={1}
+                                    borderRadius={'md'}
+                                    p={0}>
                                     <Link to="/watchlist">
-                                        <MenuItem bg={'black'}>Watchlist</MenuItem>
+                                        <MenuItem _hover={{ bg: hoverBg }} >Watchlist</MenuItem>
                                     </Link>
-                                    <MenuItem bg={'black'} onClick={logout}>Logout</MenuItem>
+                                    <MenuItem _hover={{ bg: hoverBg }} onClick={logout}>Logout</MenuItem>
                                 </MenuList>
                             </Menu>
                         )}

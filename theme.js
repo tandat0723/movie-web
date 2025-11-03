@@ -13,7 +13,7 @@ const styles = {
                 props.theme.semanticTokens.colors['chakra-body-bg']._dark,
                 'whiteAlpha.900'
             )(props),
-            color: mode('white', 'blackAlpha.900')(props),
+            color: mode('whiteAlpha.900', 'blackAlpha.900')(props),
         }
     })
 }
