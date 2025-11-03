@@ -181,6 +181,7 @@ const DetailsPage = () => {
                                 ) : (
                                     <Button
                                         leftIcon={<SmallAddIcon />}
+                                        colorScheme="white"
                                         variant={'outline'}
                                         onClick={handleSaveToWatchlist}
                                     >

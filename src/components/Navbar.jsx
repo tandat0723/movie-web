@@ -1,23 +1,5 @@
 
-import {
-    Avatar,
-    Box,
-    Button,
-    Container,
-    Drawer,
-    DrawerBody,
-    DrawerCloseButton,
-    DrawerContent,
-    DrawerHeader,
-    DrawerOverlay,
-    Flex,
-    IconButton,
-    Menu,
-    MenuButton,
-    MenuItem,
-    MenuList,
-    useDisclosure,
-} from "@chakra-ui/react";
+import { Avatar, Box, Button, Container, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay, Flex, IconButton, Menu, MenuButton, MenuItem, MenuList, useDisclosure } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/useAuth";
 import { HamburgerIcon, SearchIcon } from "@chakra-ui/icons";
@@ -72,11 +54,11 @@ const Navbar = () => {
                                         name={user?.email}
                                     />
                                 </MenuButton>
-                                <MenuList>
+                                <MenuList bg={'black'} border={"none"}>
                                     <Link to="/watchlist">
-                                        <MenuItem>Watchlist</MenuItem>
+                                        <MenuItem bg={'black'}>Watchlist</MenuItem>
                                     </Link>
-                                    <MenuItem onClick={logout}>Logout</MenuItem>
+                                    <MenuItem bg={'black'} onClick={logout}>Logout</MenuItem>
                                 </MenuList>
                             </Menu>
                         )}
